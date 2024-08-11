@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               height: 1,
             )),
       ),
-      body: GridHabits(),
+      body: const GridHabits(),
       backgroundColor: const Color.fromARGB(255, 227, 237, 226),
     );
   }

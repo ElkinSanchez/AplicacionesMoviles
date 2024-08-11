@@ -1,6 +1,6 @@
+import 'package:atomapp/screens_user/login.dart';
+import 'package:atomapp/screens_user/register.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/home_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,10 +9,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AtomApp',
-      home: HomeScreen(),
+      initialRoute: Register.routename,
+      routes: {
+        Register.routename: (context) => const Register(),
+        Login.routename: (context) => const Login(),
+      },
     );
   }
 }
