@@ -1,5 +1,6 @@
 import 'package:atomapp/screens_habits/EditHabit.dart';
 import 'package:atomapp/screens_habits/grid_habits.dart';
+import 'package:atomapp/screens_user/config.dart';
 import 'package:atomapp/screens_user/login.dart';
 import 'package:atomapp/screens_user/register.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         Login.routename: (context) => const Login(),
         GridHabits.routename: (context) => const GridHabits(),
         EditHabit.routeName: (context) => const EditHabit(),
+        Config.routeName: (context) => const Config(),
       },
     );
   }
