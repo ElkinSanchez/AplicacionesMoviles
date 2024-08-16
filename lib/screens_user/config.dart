@@ -11,7 +11,7 @@ class Config extends StatefulWidget {
 class _ConfigState extends State<Config> {
   var paddingText = const EdgeInsets.all(10);
   var fontTitle = const TextStyle(fontWeight: FontWeight.bold, fontSize: 35);
-  var fontBody = const TextStyle(color: Color.fromARGB(255, 56, 128, 58));
+  var fontBody = const TextStyle(color: Color.fromARGB(255, 39, 91, 41));
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,12 @@ class _ConfigState extends State<Config> {
           Center(
             child: Column(
               children: [
-                Text(
-                  "¡Hola! NameUser ",
-                  style: fontTitle,
+                Padding(
+                  padding: paddingText,
+                  child: Text(
+                    "¡Hola! (NameUser) ",
+                    style: fontTitle,
+                  ),
                 ),
                 Text(
                   "Configuración",
@@ -48,6 +51,56 @@ class _ConfigState extends State<Config> {
                 const SizedBox(
                   height: 100,
                 ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.person_outline_outlined),
+                        InkWell(
+                          onTap: () {},
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          child: Text(
+                            "Información del usuario",
+                            style: fontBody,
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.person_remove_alt_1_outlined),
+                        InkWell(
+                          onTap: () {},
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          child: Text("Desactivar Cuenta", style: fontBody),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          child: Row(
+                            children: [
+                              const Icon(Icons.share_outlined),
+                              Text(
+                                "Compartir Hábitos Con Amigos",
+                                style: fontBody,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                )
               ],
             ),
           ),
