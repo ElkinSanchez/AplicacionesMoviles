@@ -1,4 +1,6 @@
-import 'package:atomapp/validation_custom/form_builder.dart';
+import 'package:atomapp/builders/button_text_builder.dart';
+import 'package:atomapp/builders/form_builder.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -20,17 +22,7 @@ class _LoginState extends State<Login> {
     //Padding-Label
     const edgeInsetsInput =
         EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20);
-    //Buttons Style
-    var style = ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
-      backgroundColor: const Color.fromARGB(255, 11, 167, 136),
-      minimumSize: const Size(420, 60), // Ancho: 150, Alto: 60
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(5), // Esquinas redondeadas de 5 píxeles
-      ),
-      textStyle: const TextStyle(color: Colors.black),
-    );
+
     // style InkWell
     const styleInkWell = TextStyle(
       fontSize: 20,
@@ -97,14 +89,10 @@ class _LoginState extends State<Login> {
                       icon: Icons.mail,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
                     child: Center(
-                      child: ElevatedButton(
-                          onPressed: () => {},
-                          style: style,
-                          child: const Text("Iniciar Sesión")),
-                    ),
+                        child: ButtonTextBuilder(data: "Iniciar Sesión")),
                   ),
                   Padding(
                     padding: edgeInsetsInput,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EditHabit extends StatefulWidget {
-  static const routeName = '/edit-habit';
+  static const routename = '/edit-habit';
   const EditHabit({
     super.key,
   });
@@ -27,7 +27,8 @@ class _EditHabitState extends State<EditHabit> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(action == 'update' ? 'Actualizar Hábito' : 'Eliminar Hábito'),
+          title: Text(
+              action == 'update' ? 'Actualizar Hábito' : 'Eliminar Hábito'),
           content: Text(action == 'update'
               ? '¿Estás seguro de que deseas actualizar el hábito?'
               : '¿Estás seguro de que deseas eliminar el hábito?'),
@@ -103,7 +104,8 @@ class _EditHabitState extends State<EditHabit> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isAMSelected ? Colors.teal : Colors.grey[300],
+                    backgroundColor:
+                        isAMSelected ? Colors.teal : Colors.grey[300],
                     foregroundColor: isAMSelected ? Colors.white : Colors.black,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   ),
@@ -118,7 +120,8 @@ class _EditHabitState extends State<EditHabit> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isPMSelected ? Colors.teal : Colors.grey[300],
+                    backgroundColor:
+                        isPMSelected ? Colors.teal : Colors.grey[300],
                     foregroundColor: isPMSelected ? Colors.white : Colors.black,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   ),

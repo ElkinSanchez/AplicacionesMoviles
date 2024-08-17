@@ -1,7 +1,11 @@
+import 'package:atomapp/builders/button_icon_builder.dart';
+import 'package:atomapp/sections_app/footer.dart';
+import 'package:atomapp/sections_app/header.dart';
+import 'package:atomapp/builders/links_builder.dart';
 import 'package:flutter/material.dart';
 
 class Config extends StatefulWidget {
-  static const routeName = 'config';
+  static const routename = 'config';
   const Config({super.key});
 
   @override
@@ -9,103 +13,90 @@ class Config extends StatefulWidget {
 }
 
 class _ConfigState extends State<Config> {
+  //Function notification
+  //var noti;
+
+  //Styles View
   var paddingText = const EdgeInsets.all(10);
   var fontTitle = const TextStyle(fontWeight: FontWeight.bold, fontSize: 35);
   var fontBody = const TextStyle(color: Color.fromARGB(255, 39, 91, 41));
 
+  //Widgets Links to others views from
+  var textStyle = const TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 15,
+      color: Color.fromARGB(255, 39, 91, 41));
+
+  //Text Showing in the link
+  List<String> dynamicData = [
+    "Información del usuario",
+    "Desactivar Cuenta",
+    "Compartir Hábitos Con Amigos",
+  ];
+
+  //Different types of icons
+  List<IconData> icons = [
+    Icons.person_outline_outlined,
+    Icons.person_remove_alt_1_outlined,
+    Icons.share_outlined,
+  ];
+
+  //Link(Widget) logic
+  List<VoidCallback> onTaps = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'AtomApp',
-          style: TextStyle(
-              fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
-        ],
-        bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
-            child: Container(
-              color: Colors.black,
-              height: 1,
-            )),
-      ),
+      appBar: const Header(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: paddingText,
-                  child: Text(
-                    "¡Hola! (NameUser) ",
-                    style: fontTitle,
-                  ),
+          Column(
+            children: [
+              Padding(
+                padding: paddingText,
+                child: Text(
+                  "¡Hola! (NameUser) ",
+                  style: fontTitle,
                 ),
-                Text(
-                  "Configuración",
-                  style: fontBody,
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.person_outline_outlined),
-                        InkWell(
-                          onTap: () {},
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          child: Text(
-                            "Información del usuario",
-                            style: fontBody,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.person_remove_alt_1_outlined),
-                        InkWell(
-                          onTap: () {},
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          child: Text("Desactivar Cuenta", style: fontBody),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          child: Row(
-                            children: [
-                              const Icon(Icons.share_outlined),
-                              Text(
-                                "Compartir Hábitos Con Amigos",
-                                style: fontBody,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
+              ),
+              Text(
+                "Configuración",
+                style: fontBody,
+              ),
+            ],
           ),
+          Column(
+            children: [
+              for (int i = 0; i < dynamicData.length; i++)
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  child: LinksBuilder(
+                      // onTap: onTaps[i],
+                      data: dynamicData[i],
+                      icon: icons[i],
+                      textStyle: textStyle),
+                ),
+            ],
+          ),
+          Container(
+            color: const Color.fromARGB(255, 179, 225, 200),
+            child: const Padding(
+              padding: EdgeInsets.all(50),
+              child: Column(
+                children: [
+                  Text("Califícanos en la AppStore"),
+                  Text("Tus comentarios y opiniones nos ayudan a mejorar :)"),
+                  ButtonIconBuilder(
+                    icon: Icons.star_border,
+                  )
+                ],
+              ),
+            ),
+          )
         ],
       ),
+      bottomNavigationBar: const Footer(),
       backgroundColor: const Color.fromARGB(255, 227, 237, 226),
     );
   }

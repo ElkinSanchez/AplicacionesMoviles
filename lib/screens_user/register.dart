@@ -1,4 +1,5 @@
-import 'package:atomapp/validation_custom/form_builder.dart';
+import 'package:atomapp/builders/button_text_builder.dart';
+import 'package:atomapp/builders/form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,16 +20,6 @@ class _RegisterState extends State<Register> {
     const edgeInsetsInput =
         EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20);
     //Buttons Style
-    var style = ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
-      backgroundColor: const Color.fromARGB(255, 11, 167, 136),
-      minimumSize: const Size(10, 60),
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(5), // Esquinas redondeadas de 5 píxeles
-      ),
-      textStyle: const TextStyle(color: Colors.black),
-    );
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -93,7 +84,6 @@ class _RegisterState extends State<Register> {
                       icon: Icons.mail,
                     ),
                   ),
-                  //Label contraseña
                   const Padding(
                     padding: EdgeInsets.only(top: 20, left: 20),
                     child: Text(
@@ -115,34 +105,11 @@ class _RegisterState extends State<Register> {
                       height: 150,
                       margin:
                           const EdgeInsets.only(top: 50, left: 20, right: 20),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ElevatedButton(
-                              onPressed: () => {},
-                              style: style,
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("Registrarse con Google"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Icon(
-                                    Icons.g_mobiledata,
-                                    size: 50,
-                                  )
-                                ],
-                              )),
-                          ElevatedButton(
-                              onPressed: () => {},
-                              style: style,
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("Registrarse"),
-                                ],
-                              )),
+                          ButtonTextBuilder(data: "Registrarse Con Google"),
+                          ButtonTextBuilder(data: "Registrarse")
                         ],
                       ),
                     ),
