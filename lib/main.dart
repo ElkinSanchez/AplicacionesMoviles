@@ -1,4 +1,4 @@
-import 'package:atomapp/screens_habits/editHabit.dart';
+import 'package:atomapp/screens_habits/EditHabit.dart';
 import 'package:atomapp/screens_habits/grid_habits.dart';
 import 'package:atomapp/screens_user/config.dart';
 import 'package:atomapp/screens_user/login.dart';
