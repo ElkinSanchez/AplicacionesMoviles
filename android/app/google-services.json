@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426111950229",
+    "project_id": "atomapp-81be6",
+    "storage_bucket": "atomapp-81be6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426111950229:android:08280f0d4cfa4351056a9c",
+        "android_client_info": {
+          "package_name": "com.atomicapplication.package.atomapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmM4Ev7TyAvYMuwpygjgdN_HQD6KgP4aY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

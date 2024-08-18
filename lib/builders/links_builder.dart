@@ -6,13 +6,14 @@ class LinksBuilder extends StatelessWidget {
   final String data;
   final IconData icon;
   final TextStyle textStyle;
-  // final VoidCallback onTap;
+  final VoidCallback onTap;
 
   const LinksBuilder(
       {super.key,
       required this.data,
       required this.icon,
-      required this.textStyle});
+      required this.textStyle,
+      required this.onTap});
 
   //Style
 
@@ -22,7 +23,7 @@ class LinksBuilder extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: onTap,
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
           child: Row(

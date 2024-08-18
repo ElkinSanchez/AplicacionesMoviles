@@ -1,4 +1,4 @@
-import 'package:atomapp/builders/button_icon_builder.dart';
+import 'package:atomapp/builders/pop_out_builder.dart';
 import 'package:atomapp/sections_app/footer.dart';
 import 'package:atomapp/sections_app/header.dart';
 import 'package:atomapp/builders/links_builder.dart';
@@ -28,24 +28,28 @@ class _ConfigState extends State<Config> {
       color: Color.fromARGB(255, 39, 91, 41));
 
   //Text Showing in the link
-  List<String> dynamicData = [
+  final List<String> dynamicData = [
     "Información del usuario",
     "Desactivar Cuenta",
     "Compartir Hábitos Con Amigos",
   ];
 
   //Different types of icons
-  List<IconData> icons = [
+  final List<IconData> icons = [
     Icons.person_outline_outlined,
     Icons.person_remove_alt_1_outlined,
     Icons.share_outlined,
   ];
 
-  //Link(Widget) logic
-  List<VoidCallback> onTaps = [];
-
   @override
   Widget build(BuildContext context) {
+    //Link(Widget) logic
+    final List<VoidCallback> onTaps = [
+      () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
+      },
+    ];
     return Scaffold(
       appBar: const Header(),
       body: Column(
@@ -75,24 +79,16 @@ class _ConfigState extends State<Config> {
                       // onTap: onTaps[i],
                       data: dynamicData[i],
                       icon: icons[i],
-                      textStyle: textStyle),
+                      textStyle: textStyle,
+                      onTap: onTaps[i]),
                 ),
             ],
           ),
-          Container(
-            color: const Color.fromARGB(255, 179, 225, 200),
-            child: const Padding(
-              padding: EdgeInsets.all(50),
-              child: Column(
-                children: [
-                  Text("Califícanos en la AppStore"),
-                  Text("Tus comentarios y opiniones nos ayudan a mejorar :)"),
-                  ButtonIconBuilder(
-                    icon: Icons.star_border,
-                  )
-                ],
-              ),
-            ),
+          const PopOut(
+            color: Color.fromARGB(255, 179, 225, 200),
+            title: "Califícanos en la AppStore",
+            subtitle: 'Tus comentarios y opiniones nos ayudan a mejorar :)',
+            icon: Icons.star_border_outlined,
           )
         ],
       ),
@@ -101,3 +97,5 @@ class _ConfigState extends State<Config> {
     );
   }
 }
+
+class UserInfoScreen {}
