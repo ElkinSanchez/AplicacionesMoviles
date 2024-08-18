@@ -21,7 +21,15 @@ class ButtonTextBuilder extends StatelessWidget {
         onPressed: () => {},
         style: style,
         child: Column(
-          children: [Text(data)],
+          children: [
+            Text(
+              data,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
         ));
   }
 }

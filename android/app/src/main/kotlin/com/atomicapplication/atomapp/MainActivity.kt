@@ -1,4 +1,4 @@
-package com.atomicapplication.package.atomapp
+package com.atomicapplication.atomapp
 
 import io.flutter.embedding.android.FlutterActivity
 

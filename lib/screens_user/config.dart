@@ -1,4 +1,5 @@
 import 'package:atomapp/builders/pop_out_builder.dart';
+import 'package:atomapp/screens_habits/grid_habits.dart';
 import 'package:atomapp/sections_app/footer.dart';
 import 'package:atomapp/sections_app/header.dart';
 import 'package:atomapp/builders/links_builder.dart';
@@ -46,9 +47,11 @@ class _ConfigState extends State<Config> {
     //Link(Widget) logic
     final List<VoidCallback> onTaps = [
       () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const GridHabits()));
       },
+      () {},
+      () {}
     ];
     return Scaffold(
       appBar: const Header(),
@@ -73,15 +76,16 @@ class _ConfigState extends State<Config> {
           Column(
             children: [
               for (int i = 0; i < dynamicData.length; i++)
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: LinksBuilder(
-                      // onTap: onTaps[i],
+                if (i < icons.length && i < onTaps.length)
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: LinksBuilder(
                       data: dynamicData[i],
                       icon: icons[i],
                       textStyle: textStyle,
-                      onTap: onTaps[i]),
-                ),
+                      onTap: onTaps[i],
+                    ),
+                  )
             ],
           ),
           const PopOut(
@@ -97,5 +101,3 @@ class _ConfigState extends State<Config> {
     );
   }
 }
-
-class UserInfoScreen {}

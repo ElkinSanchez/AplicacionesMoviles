@@ -1,16 +1,17 @@
+import 'package:atomapp/sections_app/footer.dart';
+import 'package:atomapp/sections_app/header.dart';
 import 'package:flutter/material.dart';
+
 class GridHabits extends StatelessWidget {
-  static const String routename = '/gridHabits';  // Añade esta línea
+  static const String routename = '/gridHabits'; // Añade esta línea
   const GridHabits({
     super.key,
   });
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('AtomApp'),
-      ),
+      appBar: const Header(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -54,6 +55,7 @@ class GridHabits extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const Footer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Acción al presionar el botón

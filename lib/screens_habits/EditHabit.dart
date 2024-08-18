@@ -1,3 +1,5 @@
+import 'package:atomapp/sections_app/footer.dart';
+import 'package:atomapp/sections_app/header.dart';
 import 'package:flutter/material.dart';
 
 class EditHabit extends StatefulWidget {
@@ -60,15 +62,7 @@ class _EditHabitState extends State<EditHabit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Editar Hábito'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.teal[100],
-        elevation: 0,
-      ),
+      appBar: const Header(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -154,6 +148,7 @@ class _EditHabitState extends State<EditHabit> {
           ],
         ),
       ),
+      bottomNavigationBar: const Footer(),
     );
   }
 }

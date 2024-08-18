@@ -27,17 +27,15 @@ class _RegisterState extends State<Register> {
           Container(
             decoration:
                 const BoxDecoration(color: Color.fromARGB(255, 223, 223, 223)),
-            height: 200,
+            height: 300,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/iconAtom.svg',
-                      width: 70,
-                      height: 70,
-                    ),
+                Center(
+                  child: SvgPicture.asset(
+                    'assets/iconAtom.svg',
+                    width: 120,
+                    height: 120,
                   ),
                 ),
                 const Text("¡Registrate!",

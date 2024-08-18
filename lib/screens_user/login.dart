@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
           Container(
             decoration:
                 const BoxDecoration(color: Color.fromARGB(255, 223, 223, 223)),
-            height: 200,
+            height: 300,
             child: Center(
               child: SvgPicture.asset(
                 'assets/iconAtom.svg',
@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 50, bottom: 50),
+            padding: EdgeInsets.only(top: 20, bottom: 50),
             child: Text("¡Bienvenido a Atom!",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38)),
           ),

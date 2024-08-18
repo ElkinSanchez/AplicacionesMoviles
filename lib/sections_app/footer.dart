@@ -9,33 +9,22 @@ class Footer extends StatefulWidget {
 
 class _CustomBottomNavBarState extends State<Footer> {
   int _currentIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: _currentIndex,
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Inicio',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.notifications),
-          label: 'Notificaciones',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Configuración',
-        ),
-      ],
-      selectedItemColor: const Color.fromARGB(255, 39, 91, 41),
-    );
+    return NavigationBar(
+        indicatorColor: const Color.fromARGB(255, 11, 167, 136),
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home), label: "Inicio"),
+          NavigationDestination(
+              icon: Icon(Icons.notifications), label: "Notificaciones"),
+          NavigationDestination(
+              icon: Icon(Icons.settings), label: "Configuración")
+        ],
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        });
   }
 }

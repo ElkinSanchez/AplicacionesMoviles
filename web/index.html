@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
+  <!-- Base href -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -27,12 +17,36 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>atomapp</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase JS SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js"></script>
+
+  <script>
+    // Configuración de tu proyecto Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAewGWEftLSXhChhU4qgmoLF4uxs5mBmos",
+      authDomain: "atomapp-81be6.firebaseapp.com",
+      projectId: "atomapp-81be6",
+      storageBucket: "atomapp-81be6.appspot.com",
+      messagingSenderId: "426111950229",
+      appId: "1:426111950229:web:4c5942e360b92be1056a9c"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
 </head>
+
 <body>
   <script src="flutter_bootstrap.js" async></script>
 </body>
+
 </html>
