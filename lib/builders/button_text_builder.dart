@@ -12,13 +12,14 @@ var style = ElevatedButton.styleFrom(
 
 class ButtonTextBuilder extends StatelessWidget {
   final String data;
+  final VoidCallback? onPressed;
 
-  const ButtonTextBuilder({super.key, required this.data});
+  const ButtonTextBuilder({super.key, required this.data, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () => {},
+        onPressed: onPressed,
         style: style,
         child: Column(
           children: [

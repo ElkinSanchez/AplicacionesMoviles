@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AtomApp',
-      initialRoute: EditHabit.routename,
+      initialRoute: Login.routename,
       routes: {
         Register.routename: (context) => const Register(),
         Login.routename: (context) => const Login(),
