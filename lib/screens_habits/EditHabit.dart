@@ -16,33 +16,19 @@ class _EditHabitState extends State<EditHabit> {
   bool isPMSelected = false;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  String? habitId;
 
-  Future<void> _showConfirmationDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // User must tap a button to dismiss
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirmar'),
-          content: const Text('¿Estás seguro de que deseas agregar este hábito?'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop(); // Dismiss the dialog
-              },
-            ),
-            TextButton(
-              child: const Text('Confirmar'),
-              onPressed: () {
-                Navigator.of(context).pop(); // Dismiss the dialog
-                _saveHabit();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final habitData = ModalRoute.of(context)?.settings.arguments as Map?;
+    if (habitData != null) {
+      habitId = habitData['id'];
+      _nameController.text = habitData['name'];
+      _descriptionController.text = habitData['description'];
+      isAMSelected = habitData['timeOfDay'] == 'AM';
+      isPMSelected = habitData['timeOfDay'] == 'PM';
+    }
   }
 
   Future<void> _saveHabit() async {
@@ -58,20 +44,30 @@ class _EditHabitState extends State<EditHabit> {
     }
 
     try {
-      await FirebaseFirestore.instance.collection('habits').add({
-        'name': habitName,
-        'description': habitDescription,
-        'timeOfDay': timeOfDay,
-        'createdAt': Timestamp.now(),
-      });
+      if (habitId != null) {
+        // Actualiza el hábito existente
+        await FirebaseFirestore.instance.collection('habits').doc(habitId).update({
+          'name': habitName,
+          'description': habitDescription,
+          'timeOfDay': timeOfDay,
+          'updatedAt': Timestamp.now(),
+        });
+      } else {
+        // Crear un nuevo hábito
+        await FirebaseFirestore.instance.collection('habits').add({
+          'name': habitName,
+          'description': habitDescription,
+          'timeOfDay': timeOfDay,
+          'createdAt': Timestamp.now(),
+        });
+      }
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Hábito guardado con éxito')),
       );
 
-      // Redirigir al grid_Habits
       Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.of(context).pushNamed('/grid_Habits');
+      Navigator.of(context).pushNamed('/gridHabits');
 
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -121,12 +117,9 @@ class _EditHabitState extends State<EditHabit> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                    isAMSelected ? Colors.teal : Colors.grey[300],
-                    foregroundColor:
-                    isAMSelected ? Colors.white : Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
+                    backgroundColor: isAMSelected ? Colors.teal : Colors.grey[300],
+                    foregroundColor: isAMSelected ? Colors.white : Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   ),
                   child: const Text('AM'),
                 ),
@@ -139,12 +132,9 @@ class _EditHabitState extends State<EditHabit> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                    isPMSelected ? Colors.teal : Colors.grey[300],
-                    foregroundColor:
-                    isPMSelected ? Colors.white : Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
+                    backgroundColor: isPMSelected ? Colors.teal : Colors.grey[300],
+                    foregroundColor: isPMSelected ? Colors.white : Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   ),
                   child: const Text('PM'),
                 ),
@@ -152,15 +142,14 @@ class _EditHabitState extends State<EditHabit> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: _showConfirmationDialog, // Llamar a la función de confirmación
+              onPressed: _saveHabit,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 50, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 textStyle: const TextStyle(fontSize: 18),
               ),
-              child: const Center(child: Text('Agregar Hábito')),
+              child: const Center(child: Text('Guardar Hábito')),
             ),
           ],
         ),

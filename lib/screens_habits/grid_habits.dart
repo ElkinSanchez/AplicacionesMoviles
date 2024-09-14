@@ -1,13 +1,11 @@
 import 'package:atomapp/sections_app/footer.dart';
 import 'package:atomapp/sections_app/header.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firebase Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class GridHabits extends StatelessWidget {
-  static const String routename = '/gridHabits'; // Añade esta línea
-  const GridHabits({
-    super.key,
-  });
+  static const String routename = '/gridHabits';
+  const GridHabits({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,25 +16,36 @@ class GridHabits extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               '¡Vamos a empezar!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
             ),
-            const Text('Con nuestra aventura'),
+            Text(
+              'Con nuestra aventura',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 20),
             Expanded(
-              child: StreamBuilder(
+              child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('habits')
                     .orderBy('createdAt', descending: true)
                     .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
 
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Center(child: Text('No hay hábitos aún'));
+                    return Center(
+                      child: Text(
+                        'No hay hábitos aún',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    );
                   }
 
                   final habits = snapshot.data!.docs;
@@ -44,27 +53,54 @@ class GridHabits extends StatelessWidget {
                   return GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 1,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
+                      childAspectRatio: 0.8,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
                     ),
                     itemCount: habits.length,
                     itemBuilder: (context, index) {
                       final habit = habits[index];
-
                       return GestureDetector(
                         onTap: () {
-                          // Acción al hacer clic en el hábito
+                          Navigator.pushNamed(
+                            context,
+                            '/edit-habit',
+                            arguments: {
+                              'id': habit.id,
+                              'name': habit['name'],
+                              'description': habit['description'],
+                              'timeOfDay': habit['timeOfDay'],
+                            },
+                          );
                         },
-                        child: Container(
-                          color: Colors.grey[300],
-                          child: Center(
+                        child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.image, size: 50),
-                                Text(habit['name'] ?? 'Hábito'),
-                                Text(habit['timeOfDay'] ?? ''),
+                                Icon(
+                                  Icons.assignment,
+                                  size: 50,
+                                  color: Colors.teal,
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  habit['name'] ?? 'Hábito',
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  habit['timeOfDay'] ?? '',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
                               ],
                             ),
                           ),
@@ -84,6 +120,7 @@ class GridHabits extends StatelessWidget {
           Navigator.pushNamed(context, '/edit-habit');
         },
         child: const Icon(Icons.add),
+        backgroundColor: Colors.teal,
       ),
     );
   }
