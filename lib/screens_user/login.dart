@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     //Authentication User
-    final AuthUser _auth = AuthUser();
+    final AuthUser auth = AuthUser();
     //Padding-Label
     const edgeInsetsInput =
         EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20);
@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
                           if (_formkey.currentState?.validate() == true) {
                             final dataUser = _formkey.currentState?.value;
 
-                            var result = await _auth.singInEmailAndPassword(
+                            var result = await auth.singInEmailAndPassword(
                                 dataUser?['email'], dataUser?['password']);
 
                             //Válidamos errores que pueda haberse cometido

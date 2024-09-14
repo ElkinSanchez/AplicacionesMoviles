@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     //Autentification User
-    final AuthUser _auth = AuthUser();
+    final AuthUser auth = AuthUser();
     //Styles INkwell
     const styleInkWell = TextStyle(
       fontSize: 20,
@@ -128,7 +128,7 @@ class _RegisterState extends State<Register> {
                                 //Recolectamos la info. suministrada por el user
                                 final dataUser = _formkey.currentState?.value;
                                 //La mandamos por la instancia para que cree el user
-                                var result = await _auth.createAccount(
+                                var result = await auth.createAccount(
                                     dataUser?['email'], dataUser?['password']);
                                 //Válidamos errores que pueda haberse cometido
                                 switch (result) {

@@ -1,5 +1,6 @@
 import 'package:atomapp/sections_app/footer.dart';
 import 'package:atomapp/sections_app/header.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firebase Firestore
 import 'package:flutter/material.dart';
 
 class GridHabits extends StatelessWidget {
@@ -17,40 +18,62 @@ class GridHabits extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               '¡Vamos a empezar!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text('Con nuestra aventura'),
-            SizedBox(height: 20),
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    // Acción al hacer clic en el hábito
-                  },
-                  child: Container(
-                    color: Colors.grey[300],
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.image, size: 50),
-                          Text('Hábito'),
-                        ],
-                      ),
+            const Text('Con nuestra aventura'),
+            const SizedBox(height: 20),
+            Expanded(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('habits')
+                    .orderBy('createdAt', descending: true)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('No hay hábitos aún'));
+                  }
+
+                  final habits = snapshot.data!.docs;
+
+                  return GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
                     ),
-                  ),
-                );
-              },
+                    itemCount: habits.length,
+                    itemBuilder: (context, index) {
+                      final habit = habits[index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          // Acción al hacer clic en el hábito
+                        },
+                        child: Container(
+                          color: Colors.grey[300],
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.image, size: 50),
+                                Text(habit['name'] ?? 'Hábito'),
+                                Text(habit['timeOfDay'] ?? ''),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -58,9 +81,9 @@ class GridHabits extends StatelessWidget {
       bottomNavigationBar: const Footer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Acción al presionar el botón
+          Navigator.pushNamed(context, '/edit-habit');
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
