@@ -73,6 +73,33 @@ class _EditHabitState extends State<EditHabit> {
     }
   }
 
+  Future<void> _confirmDeleteHabit() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar eliminación'),
+          content: const Text('¿Estás seguro de que deseas eliminar este hábito?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Eliminar'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                _deleteHabit(); // Eliminar el hábito
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _deleteHabit() async {
     if (habitId == null) return;
 
@@ -157,32 +184,27 @@ class _EditHabitState extends State<EditHabit> {
               ],
             ),
             const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: _saveHabit,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  child: const Center(child: Text('Guardar Hábito')),
-                ),
-                if (habitId != null)
-                  ElevatedButton(
-                    onPressed: _deleteHabit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(fontSize: 18),
-                    ),
-                    child: const Center(child: Text('Eliminar Hábito')),
-                  ),
-              ],
+            ElevatedButton(
+              onPressed: _saveHabit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                textStyle: const TextStyle(fontSize: 18),
+              ),
+              child: const Center(child: Text('Guardar Hábito')),
             ),
+            if (habitId != null)
+              ElevatedButton(
+                onPressed: _confirmDeleteHabit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+                child: const Center(child: Text('Eliminar Hábito')),
+              ),
           ],
         ),
       ),

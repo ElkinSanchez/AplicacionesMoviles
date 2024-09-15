@@ -6,7 +6,7 @@ import 'package:atomapp/builders/links_builder.dart';
 import 'package:flutter/material.dart';
 
 class Config extends StatefulWidget {
-  static const routename = 'config';
+  static const routename = '/config';
   const Config({super.key});
 
   @override
