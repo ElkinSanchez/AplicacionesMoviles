@@ -14,19 +14,8 @@ class Config extends StatefulWidget {
 }
 
 class _ConfigState extends State<Config> {
-  //Function notification
-  //var noti;
-
   //Styles View
-  var paddingText = const EdgeInsets.all(10);
-  var fontTitle = const TextStyle(fontWeight: FontWeight.bold, fontSize: 35);
   var fontBody = const TextStyle(color: Color.fromARGB(255, 39, 91, 41));
-
-  //Widgets Links to others views from
-  var textStyle = const TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 15,
-      color: Color.fromARGB(255, 39, 91, 41));
 
   //Text Showing in the link
   final List<String> dynamicData = [
@@ -44,15 +33,32 @@ class _ConfigState extends State<Config> {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     //Link(Widget) logic
     final List<VoidCallback> onTaps = [
-      () {
+          () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const GridHabits()));
       },
-      () {},
-      () {}
+          () {},
+          () {}
     ];
+
+
+    var paddingText = EdgeInsets.all(screenWidth * 0.03);
+    var fontTitle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: screenHeight * 0.05,
+    );
+    var textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: screenHeight * 0.02,
+      color: const Color.fromARGB(255, 39, 91, 41),
+    );
+
     return Scaffold(
       appBar: const Header(),
       body: Column(
@@ -78,7 +84,7 @@ class _ConfigState extends State<Config> {
               for (int i = 0; i < dynamicData.length; i++)
                 if (i < icons.length && i < onTaps.length)
                   Container(
-                    margin: const EdgeInsets.all(10),
+                    margin: EdgeInsets.all(screenWidth * 0.03),
                     child: LinksBuilder(
                       data: dynamicData[i],
                       icon: icons[i],
@@ -88,12 +94,6 @@ class _ConfigState extends State<Config> {
                   )
             ],
           ),
-          const PopOut(
-            color: Color.fromARGB(255, 179, 225, 200),
-            title: "Califícanos en la AppStore",
-            subtitle: 'Tus comentarios y opiniones nos ayudan a mejorar :)',
-            icon: Icons.star_border_outlined,
-          )
         ],
       ),
       bottomNavigationBar: const Footer(),
