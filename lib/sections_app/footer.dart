@@ -18,8 +18,6 @@ class _CustomBottomNavBarState extends State<Footer> {
       indicatorColor: const Color.fromARGB(255, 11, 167, 136),
       destinations: const [
         NavigationDestination(icon: Icon(Icons.home), label: "Inicio"),
-        NavigationDestination(
-            icon: Icon(Icons.notifications), label: "Notificaciones"),
         NavigationDestination(icon: Icon(Icons.settings), label: "Configuración")
       ],
       selectedIndex: _currentIndex,
@@ -31,7 +29,7 @@ class _CustomBottomNavBarState extends State<Footer> {
           if (index == 0) {
             // Navegar a la pantalla de gridHabits
             Navigator.of(context).pushNamed('/gridHabits');
-          } else if (index == 2) {
+          } else if (index == 1) {
             // Navegar a la pantalla de configuración
             Navigator.pushNamed(context, Config.routename);
           }
