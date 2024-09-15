@@ -45,7 +45,6 @@ class _EditHabitState extends State<EditHabit> {
 
     try {
       if (habitId != null) {
-        // Actualiza el hábito existente
         await FirebaseFirestore.instance.collection('habits').doc(habitId).update({
           'name': habitName,
           'description': habitDescription,
@@ -53,7 +52,6 @@ class _EditHabitState extends State<EditHabit> {
           'updatedAt': Timestamp.now(),
         });
       } else {
-        // Crear un nuevo hábito
         await FirebaseFirestore.instance.collection('habits').add({
           'name': habitName,
           'description': habitDescription,
@@ -68,10 +66,28 @@ class _EditHabitState extends State<EditHabit> {
 
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.of(context).pushNamed('/gridHabits');
-
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al guardar el hábito: $e')),
+      );
+    }
+  }
+
+  Future<void> _deleteHabit() async {
+    if (habitId == null) return;
+
+    try {
+      await FirebaseFirestore.instance.collection('habits').doc(habitId).delete();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Hábito eliminado con éxito')),
+      );
+
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pushNamed('/gridHabits');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al eliminar el hábito: $e')),
       );
     }
   }
@@ -141,15 +157,31 @@ class _EditHabitState extends State<EditHabit> {
               ],
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: _saveHabit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                textStyle: const TextStyle(fontSize: 18),
-              ),
-              child: const Center(child: Text('Guardar Hábito')),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: _saveHabit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  child: const Center(child: Text('Guardar Hábito')),
+                ),
+                if (habitId != null)
+                  ElevatedButton(
+                    onPressed: _deleteHabit,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                      textStyle: const TextStyle(fontSize: 18),
+                    ),
+                    child: const Center(child: Text('Eliminar Hábito')),
+                  ),
+              ],
             ),
           ],
         ),
