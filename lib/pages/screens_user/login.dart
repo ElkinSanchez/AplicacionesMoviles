@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:atomapp/builders/button_text_builder.dart';
-import 'package:atomapp/builders/form_builder.dart';
-import 'package:atomapp/builders/snack_bar.dart';
-import 'package:atomapp/screens_habits/grid_habits.dart';
-import 'package:atomapp/screens_user/register.dart';
+import 'package:atomapp/pages/builders/button_text_builder.dart';
+import 'package:atomapp/pages/builders/form_builder.dart';
+import 'package:atomapp/pages/builders/snack_bar.dart';
+import 'package:atomapp/pages/screens_habits/grid_habits.dart';
+import 'package:atomapp/pages/screens_user/register.dart';
 import 'package:atomapp/utils/auth.dart';
 
 import 'package:flutter/material.dart';

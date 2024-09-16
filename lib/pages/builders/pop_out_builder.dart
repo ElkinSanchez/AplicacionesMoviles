@@ -1,7 +1,7 @@
-import 'package:atomapp/builders/button_icon_builder.dart';
+import 'package:atomapp/pages/builders/button_icon_builder.dart';
 import 'package:flutter/material.dart';
 
-var fontTitle = const TextStyle(fontWeight: FontWeight.bold, fontSize: 65);
+var fontTitle = const TextStyle(fontWeight: FontWeight.bold, fontSize: 35);
 
 class PopOut extends StatelessWidget {
   final Color color;

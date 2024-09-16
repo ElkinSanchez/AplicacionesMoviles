@@ -6,6 +6,7 @@ class Footer extends StatefulWidget {
   const Footer({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomBottomNavBarState createState() => _CustomBottomNavBarState();
 }
 
@@ -18,13 +19,13 @@ class _CustomBottomNavBarState extends State<Footer> {
       indicatorColor: const Color.fromARGB(255, 11, 167, 136),
       destinations: const [
         NavigationDestination(icon: Icon(Icons.home), label: "Inicio"),
-        NavigationDestination(icon: Icon(Icons.settings), label: "Configuración")
+        NavigationDestination(
+            icon: Icon(Icons.settings), label: "Configuración")
       ],
       selectedIndex: _currentIndex,
       onDestinationSelected: (int index) {
         setState(() {
           _currentIndex = index;
-
 
           if (index == 0) {
             // Navegar a la pantalla de gridHabits

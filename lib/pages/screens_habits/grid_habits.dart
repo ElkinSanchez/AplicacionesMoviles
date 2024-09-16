@@ -1,5 +1,5 @@
-import 'package:atomapp/sections_app/footer.dart';
-import 'package:atomapp/sections_app/header.dart';
+import 'package:atomapp/pages/sections_app/footer.dart';
+import 'package:atomapp/pages/sections_app/header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +19,9 @@ class GridHabits extends StatelessWidget {
             Text(
               '¡Vamos a empezar!',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.teal,
-              ),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
             ),
             Text(
               'Con nuestra aventura',
@@ -51,7 +51,8 @@ class GridHabits extends StatelessWidget {
                   final habits = snapshot.data!.docs;
 
                   return GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.8,
                       crossAxisSpacing: 16,
@@ -91,9 +92,12 @@ class GridHabits extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 Text(
                                   habit['name'] ?? 'Hábito',
-                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 5),

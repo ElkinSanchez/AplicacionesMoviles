@@ -1,8 +1,9 @@
-import 'package:atomapp/builders/pop_out_builder.dart';
-import 'package:atomapp/screens_habits/grid_habits.dart';
-import 'package:atomapp/sections_app/footer.dart';
-import 'package:atomapp/sections_app/header.dart';
-import 'package:atomapp/builders/links_builder.dart';
+import 'package:atomapp/pages/builders/pop_out_builder.dart';
+import 'package:atomapp/pages/screens_habits/grid_habits.dart';
+import 'package:atomapp/pages/screens_user/data.dart';
+import 'package:atomapp/pages/sections_app/footer.dart';
+import 'package:atomapp/pages/sections_app/header.dart';
+import 'package:atomapp/pages/builders/links_builder.dart';
 import 'package:flutter/material.dart';
 
 class Config extends StatefulWidget {
@@ -46,12 +47,12 @@ class _ConfigState extends State<Config> {
   Widget build(BuildContext context) {
     //Link(Widget) logic
     final List<VoidCallback> onTaps = [
-          () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const GridHabits()));
+      () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const Data()));
       },
-          () {},
-          () {}
+      () {},
+      () {}
     ];
     return Scaffold(
       appBar: const Header(),
@@ -63,13 +64,9 @@ class _ConfigState extends State<Config> {
               Padding(
                 padding: paddingText,
                 child: Text(
-                  "¡Hola! (NameUser) ",
+                  'Configuración',
                   style: fontTitle,
                 ),
-              ),
-              Text(
-                "Configuración",
-                style: fontBody,
               ),
             ],
           ),

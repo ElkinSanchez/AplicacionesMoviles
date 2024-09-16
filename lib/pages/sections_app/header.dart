@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
@@ -17,6 +18,16 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.black,
             height: 1,
           )),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+            // ignore: use_build_context_synchronously
+            Navigator.popAndPushNamed(context, 'login');
+          },
+        )
+      ],
     );
   }
 
