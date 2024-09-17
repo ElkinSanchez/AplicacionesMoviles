@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';  // Importa FirebaseAuth
 import 'package:flutter/material.dart';
 import '../sections_app/header.dart';
 import '../sections_app/footer.dart';
@@ -38,7 +39,16 @@ class _EditHabitState extends State<EditHabit> {
 
     if (habitName.isEmpty || habitDescription.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, rellena todos los campos')),
+        const SnackBar(content: Text('Por favor, rellena todos los campos')),
+      );
+      return;
+    }
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Usuario no autenticado')),
       );
       return;
     }
@@ -49,6 +59,7 @@ class _EditHabitState extends State<EditHabit> {
           'name': habitName,
           'description': habitDescription,
           'timeOfDay': timeOfDay,
+          'userId': user.uid,  // Asegúrate de actualizar el userId
           'updatedAt': Timestamp.now(),
         });
       } else {
@@ -56,12 +67,13 @@ class _EditHabitState extends State<EditHabit> {
           'name': habitName,
           'description': habitDescription,
           'timeOfDay': timeOfDay,
+          'userId': user.uid,  // Incluye el userId cuando creas el hábito
           'createdAt': Timestamp.now(),
         });
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hábito guardado con éxito')),
+        const SnackBar(content: Text('Hábito guardado con éxito')),
       );
 
       Navigator.of(context).popUntil((route) => route.isFirst);
@@ -107,7 +119,7 @@ class _EditHabitState extends State<EditHabit> {
       await FirebaseFirestore.instance.collection('habits').doc(habitId).delete();
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hábito eliminado con éxito')),
+        const SnackBar(content: Text('Hábito eliminado con éxito')),
       );
 
       Navigator.of(context).popUntil((route) => route.isFirst);
