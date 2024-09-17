@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Importa FirebaseAuth
 import 'package:flutter/material.dart';
 import '../sections_app/header.dart';
 import '../sections_app/footer.dart';
@@ -24,8 +25,17 @@ class _HabitStatsState extends State<HabitStats> {
 
   Future<void> _fetchHabitStats() async {
     try {
-      QuerySnapshot habitSnapshot =
-      await FirebaseFirestore.instance.collection('habits').get();
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        print('No hay usuario autenticado');
+        return;
+      }
+
+      QuerySnapshot habitSnapshot = await FirebaseFirestore.instance
+          .collection('habits')
+          .where('userId', isEqualTo: user.uid)
+          .get();
 
       int total = habitSnapshot.docs.length;
       int amCount = habitSnapshot.docs
