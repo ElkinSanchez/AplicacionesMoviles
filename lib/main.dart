@@ -1,3 +1,4 @@
+import 'package:atomapp/pages/screens_habits/HabitStats.dart';
 import 'package:atomapp/preferences/pref_user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:atomapp/pages/screens_habits/EditHabit.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         GridHabits.routename: (context) => const GridHabits(),
         EditHabit.routename: (context) => const EditHabit(),
         Config.routename: (context) => const Config(),
+        HabitStats.routename: (context) => const HabitStats(),
       },
     );
   }

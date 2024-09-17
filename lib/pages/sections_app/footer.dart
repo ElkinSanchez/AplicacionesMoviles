@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
+import '../screens_habits/HabitStats.dart';
 import '../screens_user/config.dart';
 
 class Footer extends StatefulWidget {
   const Footer({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _CustomBottomNavBarState createState() => _CustomBottomNavBarState();
 }
 
@@ -19,8 +18,8 @@ class _CustomBottomNavBarState extends State<Footer> {
       indicatorColor: const Color.fromARGB(255, 11, 167, 136),
       destinations: const [
         NavigationDestination(icon: Icon(Icons.home), label: "Inicio"),
-        NavigationDestination(
-            icon: Icon(Icons.settings), label: "Configuración")
+        NavigationDestination(icon: Icon(Icons.settings), label: "Configuración"),
+        NavigationDestination(icon: Icon(Icons.bar_chart), label: "Estadísticas"), // Nuevo botón
       ],
       selectedIndex: _currentIndex,
       onDestinationSelected: (int index) {
@@ -28,11 +27,11 @@ class _CustomBottomNavBarState extends State<Footer> {
           _currentIndex = index;
 
           if (index == 0) {
-            // Navegar a la pantalla de gridHabits
             Navigator.of(context).pushNamed('/gridHabits');
           } else if (index == 1) {
-            // Navegar a la pantalla de configuración
             Navigator.pushNamed(context, Config.routename);
+          } else if (index == 2) {
+            Navigator.pushNamed(context, HabitStats.routename); // Navegar a la pantalla de estadísticas
           }
         });
       },
